@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valoris Representações | Luciano Furtado</title>
+    
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-light: #E5C565;
+            --gold-dark: #B59020;
+            --white: #ffffff;
+            --gray-soft: #f0f0f0;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --backdrop-blur: 15px;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            background-color: #000;
+        }
+
+        /* --- BACKGROUND --- */
+        .bg-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('imgbackground');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(2px);
+        }
+
+        /* --- MAIN CONTAINER (GLASSMORPHISM) --- */
+        .card-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 450px;
+            margin: 20px;
+            padding: 40px 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--backdrop-blur));
+            -webkit-backdrop-filter: blur(var(--backdrop-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            display: flex;
+            flex-col-direction: column;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0; /* Hidden for animation */
+            transform: translateY(30px);
+            animation: containerEnter 1s ease-out forwards;
+        }
+
+        @keyframes containerEnter {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- PROFILE SECTION --- */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+        }
+
+        .avatar-glow {
+            position: absolute;
+            inset: -4px;
+            background: var(--gold-primary);
+            border-radius: 50%;
+            filter: blur(8px);
+            opacity: 0.6;
+            animation: pulseGlow 3s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.9; }
+        }
+
+        .avatar-img {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold-primary);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .profile-name {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-role {
+            color: var(--gold-primary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .profile-bio {
+            color: var(--gray-soft);
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.5;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        /* --- ACTION GRID --- */
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all var(--transition-speed) ease;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .action-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+
+        .action-btn i {
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 8px;
+            transition: color 0.3s;
+        }
+
+        .action-btn:hover i {
+            color: var(--gold-primary);
+        }
+
+        .action-btn span {
+            color: var(--gray-soft);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* --- SAVE CONTACT BUTTON --- */
+        .btn-save {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary), var(--gold-dark));
+            background-size: 200% auto;
+            border: none;
+            border-radius: 12px;
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: all var(--transition-speed);
+            margin-bottom: 30px;
+            text-decoration: none;
+        }
+
+        .btn-save:hover {
+            background-position: right center;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-save:active {
+            transform: translateY(1px);
+        }
+
+        /* --- OPPORTUNITY CARD --- */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .opportunity-card {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--transition-speed);
+            group-hover: border-color: var(--gold-primary);
+        }
+
+        .opportunity-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .card-image-wrap {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .card-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .opportunity-card:hover .card-image-wrap img {
+            transform: scale(1.1);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gold-primary);
+            color: var(--white);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .card-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-title {
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .card-btn {
+            display: inline-block;
+            padding: 8px 24px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: var(--gold-primary);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-speed);
+        }
+
+        .card-btn:hover {
+            background: var(--gold-primary);
+            color: var(--white);
+            border-color: transparent;
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-link {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2rem;
+            transition: all var(--transition-speed);
+        }
+
+        .social-link:hover {
+            color: var(--gold-primary);
+            transform: scale(1.2);
+        }
+
+        .copyright {
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- ANIMATION UTILS --- */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
+</head>
+<body>
+
+    <!-- Fixed Background -->
+    <div class="bg-fixed"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- Main Container -->
+    <main class="card-container">
+        
+        <!-- Profile Header -->
+        <header class="profile-header animate-in" style="animation-delay: 0.1s;">
+            <div class="avatar-wrapper">
+                <div class="avatar-glow"></div>
+                <img src="fotoperfil">
+            </div>
+            <h1 class="profile-name">Luciano Furtado</h1>
+            <p class="profile-role">Gerente Comercial</p>
+            <p class="profile-bio">Transformando Ideias em Impacto Visual.</p>
+        </header>
+
+        <!-- Action Grid -->
+        <section class="action-grid">
+            <a href="https://wa.me/5585994015467" target="_blank" class="action-btn animate-in" style="animation-delay: 0.2s;">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </a>
+            <a href="https://maps.app.goo.gl/5Xf3CqK5SFasV6kt7" target="_blank" class="action-btn animate-in" style="animation-delay: 0.3s;">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Localização</span>
+            </a>
+            <a href="mailto:contato.valoris@gmail.com" class="action-btn animate-in" style="animation-delay: 0.4s;">
+                <i class="fa-solid fa-envelope"></i>
+                <span>E-mail</span>
+            </a>
+            <a href="https://www.valorisrps.com" target="_blank" class="action-btn animate-in" style="animation-delay: 0.5s;">
+                <i class="fa-solid fa-globe"></i>
+                <span>Site</span>
+            </a>
+        </section>
+
+        <!-- Save Contact Button -->
+        <button id="saveContactBtn" class="btn-save animate-in" style="animation-delay: 0.6s;">
+            <i class="fa-solid fa-address-book"></i>
+            Salvar na Agenda
+        </button>
+
+        <div class="divider animate-in" style="animation-delay: 0.65s;"></div>
+
+        <!-- Opportunity Card -->
+        <article class="opportunity-card animate-in" style="animation-delay: 0.7s;">
+            <div class="card-image-wrap">
+                <span class="card-badge">Exclusivo</span>
+                <img src="imagemmix">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">A mágica acontece quando suas ideias ganham forma</h3>
+                <a href="#" class="card-btn">Saiba Mais</a>
+            </div>
+        </article>
+
+        <!-- Footer -->
+        <footer class="footer animate-in" style="animation-delay: 0.8s;">
+            <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+        </footer>
+
+        <div class="copyright animate-in" style="animation-delay: 0.9s;">
+            Luciano Furtado © 2025
+        </div>
+
+    </main>
+
+    <script>
+        // Data for vCard
+        const contactData = {
+            name: "Luciano Furtado",
+            role: "Gerente Comercial",
+            phone: "+5585994015467",
+            email: "contato.valoris@gmail.com",
+            website: "https://www.valorisrps.com",
+            location: "Fortaleza, Ceará"
+        };
+
+        // vCard Generation Logic
+        document.getElementById('saveContactBtn').addEventListener('click', function() {
+            const vCardContent = [
+                'BEGIN:VCARD',
+                'VERSION:3.0',
+                `FN:${contactData.name}`,
+                `TITLE:${contactData.role}`,
+                `TEL;TYPE=CELL:${contactData.phone}`,
+                `EMAIL;TYPE=WORK:${contactData.email}`,
+                `URL:${contactData.website}`,
+                `ADR;TYPE=WORK:;;${contactData.location}`,
+                'END:VCARD'
+            ].join('\n');
+
+            const blob = new Blob([vCardContent], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            
+            link.href = url;
+            link.download = `${contactData.name.replace(/\s+/g, '_')}.vcf`;
+            document.body.appendChild(link);
+            link.click();
+            
+            // Clean up
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
